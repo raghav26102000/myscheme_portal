@@ -1,13 +1,15 @@
 import React from 'react';
-import Icon from '../../../components/AppIcon';
+import { motion } from 'framer-motion';
+
+import AnimatedStats from '../../../components/animation/AnimatedStats';
 
 const DashboardStats = ({ stats }) => {
   const statItems = [
     {
       id: 'applications',
       label: 'Applications in Progress',
-      value: stats.applicationsInProgress,
-      icon: 'FileText',
+      value: stats?.applicationsInProgress || 0,
+      icon: '📄',
       color: 'text-warning-600',
       bgColor: 'bg-warning-50',
       borderColor: 'border-warning-200'
@@ -15,8 +17,8 @@ const DashboardStats = ({ stats }) => {
     {
       id: 'approved',
       label: 'Approved Schemes',
-      value: stats.approvedSchemes,
-      icon: 'CheckCircle',
+      value: stats?.approvedSchemes || 0,
+      icon: '✅',
       color: 'text-success-600',
       bgColor: 'bg-success-50',
       borderColor: 'border-success-200'
@@ -24,8 +26,8 @@ const DashboardStats = ({ stats }) => {
     {
       id: 'bookmarks',
       label: 'Saved Bookmarks',
-      value: stats.savedBookmarks,
-      icon: 'Bookmark',
+      value: stats?.savedBookmarks || 0,
+      icon: '🔖',
       color: 'text-primary-600',
       bgColor: 'bg-primary-50',
       borderColor: 'border-primary-200'
@@ -33,8 +35,8 @@ const DashboardStats = ({ stats }) => {
     {
       id: 'matches',
       label: 'Eligibility Matches',
-      value: stats.eligibilityMatches,
-      icon: 'Target',
+      value: stats?.eligibilityMatches || 0,
+      icon: '🎯',
       color: 'text-accent-600',
       bgColor: 'bg-accent-50',
       borderColor: 'border-accent-200'
@@ -42,31 +44,20 @@ const DashboardStats = ({ stats }) => {
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      {statItems.map((item) => (
-        <div
-          key={item.id}
-          className={`
-            ${item.bgColor} ${item.borderColor} border rounded-lg p-4 
-            hover:shadow-md transition-shadow duration-200
-          `}
-        >
-          <div className="flex items-center justify-between mb-2">
-            <div className={`
-              w-10 h-10 ${item.bgColor} rounded-lg flex items-center justify-center
-              border ${item.borderColor}
-            `}>
-              <Icon name={item.icon} size={20} className={item.color} />
-            </div>
-            <span className={`text-2xl font-bold ${item.color}`}>
-              {item.value}
-            </span>
-          </div>
-          <p className="text-sm text-text-secondary font-medium">
-            {item.label}
-          </p>
-        </div>
-      ))}
+    <div className="mb-8">
+      <motion.h2 
+        className="text-xl font-heading font-semibold text-text-primary mb-6"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Your Dashboard Overview
+      </motion.h2>
+      
+      <AnimatedStats 
+        stats={statItems}
+        className="grid-cols-2 lg:grid-cols-4"
+      />
     </div>
   );
 };

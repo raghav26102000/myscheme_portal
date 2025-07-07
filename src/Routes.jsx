@@ -6,6 +6,7 @@ import ErrorBoundary from "components/ErrorBoundary";
 import Homepage from "pages/homepage";
 import AiChatbotInterface from "pages/ai-chatbot-interface";
 import UserDashboard from "pages/user-dashboard";
+import SchemeSearchAndBrowse from "pages/scheme-search-and-browse";
 import NotFound from "pages/NotFound";
 
 const Routes = () => {
@@ -19,6 +20,7 @@ const Routes = () => {
         <Route path="/homepage" element={<Homepage />} />
         <Route path="/ai-chatbot-interface" element={<AiChatbotInterface />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
+        <Route path="/scheme-search-and-browse" element={<SchemeSearchAndBrowse />} />
         <Route path="*" element={<NotFound />} />
       </RouterRoutes>
       </ErrorBoundary>

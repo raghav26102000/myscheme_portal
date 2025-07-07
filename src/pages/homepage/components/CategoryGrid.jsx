@@ -1,176 +1,208 @@
 import React from 'react';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import AnimatedCard from '../../../components/animation/AnimatedCard';
 
 const CategoryGrid = () => {
+  const navigate = useNavigate();
+
   const categories = [
     {
-      id: 1,
-      name: "Agriculture & Farmers",
-      icon: "Wheat",
-      count: 245,
-      color: "bg-green-50 text-green-600",
-      description: "Schemes for farmers, crop insurance, and agricultural development"
+      id: 'education',
+      title: 'Education',
+      icon: '🎓',
+      count: '450+',
+      color: 'from-blue-500 to-blue-600',
+      description: 'Scholarships, skill development, and educational support'
     },
     {
-      id: 2,
-      name: "Education & Scholarships",
-      icon: "GraduationCap",
-      count: 312,
-      color: "bg-blue-50 text-blue-600",
-      description: "Educational support, scholarships, and skill development"
+      id: 'healthcare',
+      title: 'Healthcare',
+      icon: '🏥',
+      count: '320+',
+      color: 'from-green-500 to-green-600',
+      description: 'Medical insurance, health programs, and wellness initiatives'
     },
     {
-      id: 3,
-      name: "Healthcare & Wellness",
-      icon: "Heart",
-      count: 189,
-      color: "bg-red-50 text-red-600",
-      description: "Health insurance, medical schemes, and wellness programs"
+      id: 'employment',
+      title: 'Employment',
+      icon: '💼',
+      count: '280+',
+      color: 'from-purple-500 to-purple-600',
+      description: 'Job creation, skill training, and employment opportunities'
     },
     {
-      id: 4,
-      name: "Women Empowerment",
-      icon: "Users",
-      count: 156,
-      color: "bg-pink-50 text-pink-600",
-      description: "Schemes supporting women's rights, safety, and empowerment"
+      id: 'agriculture',
+      title: 'Agriculture',
+      icon: '🌾',
+      count: '380+',
+      color: 'from-yellow-500 to-yellow-600',
+      description: 'Farming support, crop insurance, and agricultural loans'
     },
     {
-      id: 5,
-      name: "Business & Employment",
-      icon: "Briefcase",
-      count: 278,
-      color: "bg-purple-50 text-purple-600",
-      description: "Startup support, employment schemes, and business loans"
+      id: 'housing',
+      title: 'Housing',
+      icon: '🏠',
+      count: '200+',
+      color: 'from-red-500 to-red-600',
+      description: 'Affordable housing, home loans, and urban development'
     },
     {
-      id: 6,
-      name: "Housing & Infrastructure",
-      icon: "Home",
-      count: 134,
-      color: "bg-orange-50 text-orange-600",
-      description: "Housing schemes, urban development, and infrastructure"
-    },
-    {
-      id: 7,
-      name: "Social Welfare",
-      icon: "Shield",
-      count: 223,
-      color: "bg-teal-50 text-teal-600",
-      description: "Social security, pension schemes, and welfare programs"
-    },
-    {
-      id: 8,
-      name: "Rural Development",
-      icon: "TreePine",
-      count: 167,
-      color: "bg-emerald-50 text-emerald-600",
-      description: "Rural infrastructure, employment, and development schemes"
-    },
-    {
-      id: 9,
-      name: "Senior Citizens",
-      icon: "Users2",
-      count: 98,
-      color: "bg-amber-50 text-amber-600",
-      description: "Pension, healthcare, and support schemes for elderly"
-    },
-    {
-      id: 10,
-      name: "Differently Abled",
-      icon: "Accessibility",
-      count: 87,
-      color: "bg-indigo-50 text-indigo-600",
-      description: "Support schemes for persons with disabilities"
-    },
-    {
-      id: 11,
-      name: "Youth & Sports",
-      icon: "Trophy",
-      count: 145,
-      color: "bg-cyan-50 text-cyan-600",
-      description: "Youth development, sports, and recreational schemes"
-    },
-    {
-      id: 12,
-      name: "Environment & Energy",
-      icon: "Leaf",
-      count: 112,
-      color: "bg-lime-50 text-lime-600",
-      description: "Environmental protection and renewable energy schemes"
+      id: 'social-welfare',
+      title: 'Social Welfare',
+      icon: '🤝',
+      count: '500+',
+      color: 'from-indigo-500 to-indigo-600',
+      description: 'Social security, disability support, and welfare programs'
     }
   ];
 
   const handleCategoryClick = (category) => {
-    window.location.href = `/scheme-search-and-browse?category=${encodeURIComponent(category.name)}`;
+    navigate(`/scheme-search-and-browse?category=${category.id}`);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
   };
 
   return (
-    <div className="bg-surface py-12 md:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-text-primary mb-4">
-            Explore Schemes by Category
-          </h2>
-          <p className="text-text-secondary text-lg max-w-3xl mx-auto">
-            Browse through different categories to find schemes that match your needs and eligibility
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6">
-          {categories.map((category) => (
-            <Button
-              key={category.id}
-              variant="ghost"
-              onClick={() => handleCategoryClick(category)}
-              className="h-auto p-6 flex flex-col items-center space-y-4 bg-background hover:bg-surface border border-border hover:border-primary hover:shadow-md transition-all duration-200 rounded-xl group"
-            >
-              <div className={`w-16 h-16 rounded-full flex items-center justify-center ${category.color} group-hover:scale-110 transition-transform duration-200`}>
-                <Icon name={category.icon} size={28} />
-              </div>
-              
-              <div className="text-center space-y-2">
-                <h3 className="font-heading font-semibold text-text-primary text-sm md:text-base leading-tight">
-                  {category.name}
-                </h3>
-                
-                <div className="flex items-center justify-center space-x-1">
-                  <span className="text-primary font-bold text-lg">
-                    {category.count}
-                  </span>
-                  <span className="text-text-secondary text-sm">
-                    schemes
-                  </span>
-                </div>
-                
-                <p className="text-text-secondary text-xs leading-relaxed hidden md:block">
-                  {category.description}
-                </p>
-              </div>
-              
-              <Icon 
-                name="ArrowRight" 
-                size={16} 
-                className="text-text-secondary group-hover:text-primary group-hover:translate-x-1 transition-all duration-200" 
-              />
-            </Button>
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Button
-            variant="outline"
-            onClick={() => window.location.href = '/scheme-search-and-browse'}
-            iconName="Grid3x3"
-            iconPosition="left"
-            className="px-8 py-3"
+    <section className="py-20 bg-background relative">
+      <div className="container mx-auto px-4">
+        {/* Section Header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h2 
+            className="text-4xl font-heading font-bold text-text-primary mb-4"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
-            View All Categories
-          </Button>
-        </div>
+            Explore Scheme Categories
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-text-secondary max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+          >
+            Find the perfect government scheme for your needs across various sectors
+          </motion.p>
+        </motion.div>
+
+        {/* Category Grid */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {categories.map((category, index) => (
+            <AnimatedCard
+              key={category.id}
+              animationDelay={index * 0.1}
+              hoverScale={1.08}
+              hoverRotate={3}
+              className="cursor-pointer"
+              onClick={() => handleCategoryClick(category)}
+            >
+              <div className="relative p-8 bg-surface rounded-2xl border border-border/50 shadow-lg overflow-hidden group">
+                {/* Animated background gradient */}
+                <motion.div
+                  className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                  style={{ transform: 'translateZ(-5px)' }}
+                />
+                
+                {/* Icon */}
+                <motion.div
+                  className="text-6xl mb-4 text-center"
+                  whileHover={{ 
+                    scale: 1.2,
+                    rotate: [0, -10, 10, -5, 5, 0],
+                    transition: { duration: 0.5 }
+                  }}
+                >
+                  {category.icon}
+                </motion.div>
+
+                {/* Content */}
+                <div className="text-center relative z-10">
+                  <motion.h3 
+                    className="text-2xl font-heading font-bold text-text-primary mb-2"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    {category.title}
+                  </motion.h3>
+                  
+                  <motion.div 
+                    className="text-sm font-semibold text-primary mb-3"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                  >
+                    {category.count} schemes available
+                  </motion.div>
+                  
+                  <motion.p 
+                    className="text-text-secondary text-sm leading-relaxed"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 + index * 0.1 }}
+                  >
+                    {category.description}
+                  </motion.p>
+                </div>
+
+                {/* Hover Effect Overlay */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{ transform: 'translateZ(5px)' }}
+                />
+
+                {/* Floating particles on hover */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {[...Array(3)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-primary/30 rounded-full opacity-0 group-hover:opacity-100"
+                      style={{
+                        left: `${20 + i * 30}%`,
+                        top: `${30 + i * 20}%`,
+                      }}
+                      animate={{
+                        y: [0, -10, 0],
+                        x: [0, 5, 0],
+                        scale: [1, 1.2, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: i * 0.3,
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </AnimatedCard>
+          ))}
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 
